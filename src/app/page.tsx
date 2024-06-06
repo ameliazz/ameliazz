@@ -46,7 +46,7 @@ export default function Home() {
                     <Card.Root title='Mozz.Env' tag='Public (library)'>
                         <Card.Image src='https://r2.ameliazz.xyz/mozz.env.png' />
                         <Card.Footer>
-                            <a href='https://github.com/Canary2000/mozz.env'>
+                            <a href='https://github.com/ameliazz/mozz.env'>
                                 Repo
                             </a>
                             <a href='https://npmjs.com/package/mozz.env'>npm</a>
@@ -56,7 +56,7 @@ export default function Home() {
                     <Card.Root title='api.ameliazz.xyz' tag='Public (API)'>
                         <Card.Image src='https://r2.ameliazz.xyz/api.ameliazz.png' />
                         <Card.Footer>
-                            <a href='https://github.com/Canary2000/api.ameliazz.xyz'>
+                            <a href='https://github.com/ameliazz/api.ameliazz.xyz'>
                                 Repo
                             </a>
                         </Card.Footer>

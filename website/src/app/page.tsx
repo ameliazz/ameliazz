@@ -96,7 +96,7 @@ export default function Home() {
                                 I've done work for people and companies that
                                 sought and continue to seek my knowledge to
                                 boost their businesses with new faces in the
-                                digital world.
+                                digital world. However, I have also worked and work in the area of ​​Back-End and Bot development for Discord.
                             </p>
                             <p
                                 className='font__poppins-light hover__to--left'

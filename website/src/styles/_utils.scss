@@ -69,4 +69,54 @@
         font-optical-sizing: auto;
         font-weight: 200;
     }
+
+    &__poppins-light {
+        font-family: "Poppins", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+    }
+}
+
+.ls {
+    &--sm {
+        letter-spacing: 4px;
+    }
+}
+
+.hover__to {
+    &--left {
+        transition: 0.3s;
+
+        &:hover {
+            margin-left: -1rem;
+        }
+    }
+
+    &--top {
+        transition: 0.3s;
+
+        &:hover {
+            margin-top: -1rem;
+        }
+    }
+}
+
+.hover__underspace,
+.text__hover__underspace {
+    display: inline-block;
+    margin-bottom: 4px;
+
+    &:after {
+        content: "";
+        width: 0px;
+        height: 1px;
+        margin-top: -4px;
+        display: block;
+        background: rgb(255, 255, 255);
+        transition: 300ms;
+    }
+
+    &:hover:after {
+        width: 100%;
+    }
 }

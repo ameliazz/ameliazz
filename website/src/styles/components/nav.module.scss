@@ -29,6 +29,15 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+.logo {
+    @extend .flex--center, .gap--sm;
+    display: none;
+}
+
+.social__links__container {
+    @extend .flex, .gap--md;
+}
+
 #links__section {
     gap: 2rem;
 }
@@ -109,5 +118,13 @@
 
     #toggle__menu__button {
         display: block;
+    }
+
+    .social__links__container {
+        display: none;
+    }
+
+    .logo {
+        display: flex;
     }
 }

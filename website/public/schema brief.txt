@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../lib/.prisma/client"
+  binaryTargets = ["debian-openssl-1.1.x", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id
+  createdAt DateTime @default(now())
+  coins BigInt @default(0)
+  dp Int @default(0)
+  ownedCampos String[] @default(["math-campo"])
+  selectedCampo String @default("math-campo")
+  favorite String?
+
+  team_name String @default("Novo Time")
+  team_sigla String @db.VarChar(5) @default("NVT")
+  team_players String[] @default(["", "", "", "", "", "", "", "", "", ""])
+  team_goalkeeper String?
+  team_captain String?
+  team_fkplayer String?
+  team_formation String @default("4-3-3E")
+  team_relationship Int @default(0)
+
+  claim_dailyTrackerDate DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+  claim_dailyAmount Int @default(0)
+  claim_dailyRewardStreak Int @default(0)
+  claim_dailyMaxRewardStreak Int @default(0)
+  claim_lastReward DateTime @default(now()) @db.Timestamptz(0)
+  claim_lastClaim DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+  claim_lastClaims DateTime[] @default([])
+  claim_captchaFailCount Int @default(0)
+  claim_nextCaptchaPass DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+
+  plan String?
+  plan_activatedAt DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+  plan_endsAt DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+  plan_lastDPClaim DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+  plan_lastBoxClaim DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+  plan_credits PlanCredit[]
+
+  inventory Player[]
+  boxes Box[]
+  packs Pack[]
+
+  statistics_claims Int @default(0)
+  statistics_matches Int @default(0)
+  statistics_wins Int @default(0)
+  statistics_loses Int @default(0)
+  statistics_goals Int @default(0)
+  statistics_concededGoals Int @default(0)
+  statistics_fouls Int @default(0)
+  statistics_fouled Int @default(0)
+  statistics_freekicks Int @default(0)
+  statistics_freekickGoals Int @default(0)
+  statistics_freekickConcededGoals Int @default(0)
+  statistics_freekickDefenses Int @default(0)
+  statistics_penaltyMatches Int @default(0)
+  statistics_penaltyKicks Int @default(0)
+  statistics_penaltyGoals Int @default(0)
+  statistics_concededPenaltyGoals Int @default(0)
+  statistics_penaltyDefenses Int @default(0)
+  statistics_yellowCards Int @default(0)
+  statistics_redCards Int @default(0)
+  statistics_minutesPlayed Int @default(0)
+
+  draft_team_trackerDate DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+  draft_team_players String[] @default(["", "", "", "", "", "", "", "", "", ""])
+  draft_team_goalkeeper String?
+  draft_team_captain String?
+  draft_team_fkplayer String?
+  draft_team_formation String @default("4-3-3E")
+  draft_lastDailyClaim DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+  draft_packs DraftPack[]
+  draft_inventory DraftPlayer[]
+
+  vote_last DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+  vote_count Int @default(0)
+  vote_streak Int @default(0)
+  vote_lastClaim DateTime @default(dbgenerated("'epoch'::timestamp")) @db.Timestamptz(0)
+
+  transactions Transaction[]
+}
+
+model Player {
+  id String
+  user_id String
+  user User @relation(references: [id], fields: [user_id])
+  uuid String @default(uuid()) @id
+  @@index([id, user_id])
+
+  claimedWhen DateTime @default(now())
+  claimedHow String @default("UNKNOWN")
+
+  statistics_goals Int @default(0)
+  statistics_gkDefenses Int @default(0)
+  statistics_freekickGoals Int @default(0)
+  statistics_freekickDefenses Int @default(0)
+  statistics_penaltyKicks Int @default(0)
+  statistics_penaltyGoals Int @default(0)
+  statistics_penaltyDefenses Int @default(0)
+  statistics_fouls Int @default(0)
+  statistics_yellowCards Int @default(0)
+  statistics_redCards Int @default(0)
+  statistics_matches Int @default(0)
+}
+
+model Box {
+  box String
+  id String @default(uuid()) @id
+  user_id String
+  user User @relation(fields: [user_id], references: [id])
+  @@index([box, user_id])
+
+  prizes Json
+}
+
+model Pack {
+  pack String
+  id String @default(uuid()) @id
+  user_id String
+  user User @relation(fields: [user_id], references: [id])
+  @@index([pack, user_id])
+
+  prizes Json
+}
+
+model DraftPlayer {
+  id String
+  user_id String
+  user User @relation(references: [id], fields: [user_id])
+  uuid String @default(uuid()) @id
+  @@index([id, user_id])
+}
+
+model DraftPack {
+  pack String
+  id String @default(uuid()) @id
+  user_id String
+  user User @relation(fields: [user_id], references: [id])
+  @@index([pack, user_id])
+
+  prizes Json
+}
+
+model PlanCredit {
+  id String @id  @default(uuid())
+  plan String
+  user_id String
+  user User @relation(fields: [user_id], references: [id])
+  // Duration in seconds
+  duration Int
+  // Duration in seconds til next box claim
+  nextBoxClaim Int
+  // Duration in seconds til next dp claim
+  nextDPClaim Int
+
+  @@index([user_id])
+}
+
+model Transaction {
+  id String @id @default(uuid())
+  user_id String
+  user User @relation(fields: [user_id], references: [id])
+  date DateTime @default(now())
+  type String
+  details Json
+
+  @@index([user_id])
+}

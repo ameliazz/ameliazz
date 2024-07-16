@@ -2,7 +2,8 @@
 
 import { ReactNode, useState } from 'react'
 import styles from '@/styles/components/nav.module.scss'
-import { Github, Menu, X } from 'lucide-react'
+import { Github, Icon, Menu, X } from 'lucide-react'
+import Image from 'next/image'
 
 export const Link = ({
     href,
@@ -33,9 +34,27 @@ export const Root = ({
 
             <header className={styles.header__container}>
                 <nav className={styles.root}>
-                    <div className='flex'>
-                        <Link href='https://github.com/Canary2000'>
+                    <div className={styles.logo}>
+                        <Image
+                            src='https://r2.ameliazz.xyz/avatar.png'
+                            alt="Amélia's profile icon"
+                            width={40}
+                            height={40}
+                        />
+                    </div>
+
+                    <div className={styles.social__links__container}>
+                        <Link href='https://github.com/ameliazz'>
                             <Github />
+                        </Link>
+
+                        <Link href='https://discord.com/users/699416429338034268'>
+                            <Image
+                                src='/discord-mark-white.svg'
+                                alt='Discord white mark'
+                                width='24'
+                                height='24'
+                            />
                         </Link>
                     </div>
 

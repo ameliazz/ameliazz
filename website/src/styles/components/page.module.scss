@@ -1,0 +1,59 @@
+@import "../utils";
+
+.hero__container {
+    @extend .flex--center;
+
+    flex-direction: column;
+    justify-content: center;
+
+    width: 100vw;
+    height: 94vh;
+    padding: 0 6rem;
+    color: #ffffffde;
+
+    .hero__title {
+        @extend .flex, .font__acorn;
+        justify-content: space-between;
+        font-size: 4.5rem;
+        text-align: center;
+    }
+}
+
+.section__container {
+    @extend .flex--center, .flex--column, .gap--md;
+    padding: 0 6rem;
+    flex-wrap: wrap;
+}
+
+.works__grid__container {
+    @extend .flex--center, .gap--md;
+    flex-wrap: wrap;
+}
+
+.about__container {
+    @extend .section__container;
+    padding: 0 11rem;
+
+    margin-bottom: 4rem;
+}
+
+.about__container__inner__container {
+    @extend .flex, .gap--md;
+}
+
+@media screen and (max-width: 640px) {
+    .section__container {
+        padding: 0 2rem;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .about__container {
+        padding: 0 2rem;
+    }
+
+    .about__container__inner__container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

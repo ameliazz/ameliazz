@@ -4,7 +4,7 @@
 age: 16y
 nationality: Brazil
 online-alias: Lia
-about: FullStack developer
+about: Front-End developer
 slogan: Your Next Web Front-End developer.
 url: 'https://ameliazz.xyz/'
 social:
